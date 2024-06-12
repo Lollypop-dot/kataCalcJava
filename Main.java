@@ -85,34 +85,42 @@ class Main {
     static int fromRoman(String roman) {
         int res = 0;
         int prevValue = 0;
-
-        for (int i = roman.length() - 1; i >= 0; i--) {
-            char romanChar = roman.charAt(i);
-            int value;
-            if (romanChar == 'I') {
-                value = 1;
-            } else if (romanChar == 'V') {
-                value = 5;
-            } else if (romanChar == 'X') {
-                value = 10;
-            } else if (romanChar == 'L') {
-                value = 50;
-            } else if (romanChar == 'C') {
-                value = 100;
-            } else if (romanChar == 'D') {
-                value = 500;
-            } else if (romanChar == 'M') {
-                value = 1000;
-            } else {
-                throw new IllegalArgumentException("Некорректный символ в римском числе: " + romanChar);
-            }
-            
-            if (value < prevValue) {
-                res -= value;
-            } else {
-                res += value;
-                prevValue = value;
-            }
+        int count = 0;
+            for (int i = roman.length() - 1; i >= 0; i--) {
+                char romanChar = roman.charAt(i);
+                int value;
+                if (romanChar == 'I') {
+                    value = 1;
+                } else if (romanChar == 'V') {
+                    value = 5;
+                } else if (romanChar == 'X') {
+                    value = 10;
+                } else if (romanChar == 'L') {
+                    value = 50;
+                } else if (romanChar == 'C') {
+                    value = 100;
+                } else if (romanChar == 'D') {
+                    value = 500;
+                } else if (romanChar == 'M') {
+                    value = 1000;
+                } else {
+                    throw new IllegalArgumentException("Некорректный символ в римском числе: " + romanChar);
+                }
+                if (value == prevValue){
+                    count +=1;
+                }
+                if (value < prevValue) {
+                    res -= value;
+                }else if(value == prevValue && count == 3){
+                    throw new IllegalArgumentException("Некорректный символ в римском числе: " + romanChar + romanChar + romanChar + romanChar);
+                } else {
+                    if(value + prevValue == 10){
+                        throw new IllegalArgumentException("Некорректный символ в римском числе: " + romanChar + romanChar); 
+                    }else{
+                        res += value;
+                        prevValue = value;
+                    }
+                }
         }
 
         return res;
