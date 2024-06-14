@@ -114,7 +114,7 @@ class Main {
                 }else if(value == prevValue && count == 3){
                     throw new IllegalArgumentException("Некорректный символ в римском числе: " + romanChar + romanChar + romanChar + romanChar);
                 } else {
-                    if(value + prevValue == 10){
+                    if(value + prevValue == 10 && value == prevValue){
                         throw new IllegalArgumentException("Некорректный символ в римском числе: " + romanChar + romanChar); 
                     }else{
                         res += value;
